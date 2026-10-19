@@ -46,7 +46,11 @@ inline constexpr float TurtleDeadlyMin		= 1.0f;
 inline constexpr float TurtleDeadlyMax		= 2.0f;
 inline constexpr float TurtleWarnTime		= 0.3f;    
 inline constexpr float TurtleBlinkInterval	= 0.075f;  
-inline constexpr float TurtleGhostAlpha		= 0.55f;   
+inline constexpr float TurtleGhostAlpha		= 0.55f;  
+
+// TODO Fix not having two sources of true
+// Simultaneous copies of each sound (same order as SoundId) 
+inline constexpr int SoundVoices[] = { 4, 2, 2, 2, 1 };
 
 constexpr bool IsRiverRow(int row) { return row >= RiverFirstRow && row <= RiverLastRow; }
 constexpr bool IsTurtleRow(int row) { return row == TurtleRowA || row == TurtleRowB; }

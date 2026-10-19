@@ -5,9 +5,12 @@
 #include "raylib.h"
 
 void PlayingState::OnEnter() {
+    auto& audio = AudioManager::Instance();
+    audio.Stop(SoundId::GameOver);   // don't let the previous run's jingle bleed into this one
+    audio.StartMusic();
+
     session_.Reset();
     world_.StartLevel(1);
-    AudioManager::Instance().StartMusic();
 }
 
 void PlayingState::Update(float dt) {
@@ -26,6 +29,7 @@ void PlayingState::Update(float dt) {
     if (session_.IsGameOver()) {
         auto& audio = AudioManager::Instance();
         audio.StopMusic();
+        audio.StopAll();                 
         audio.Play(SoundId::GameOver);
         game_.ChangeState<GameOverState>(session_.Score());
     }
@@ -71,6 +75,7 @@ void PlayingState::ProcessWorldEvents() {
 }
 
 void PlayingState::LoseLife(bool drowned) {
-    AudioManager::Instance().Play(drowned ? SoundId::Splash : SoundId::Hit);
     session_.LoseLife();
+    if (session_.IsGameOver()) return;   
+    AudioManager::Instance().Play(drowned ? SoundId::Splash : SoundId::Hit);
 }
