@@ -12,6 +12,7 @@ public:
     bool Hop(Direction dir);          // false if the hop is blocked by the screen edge
     void SnapToGrid();                // aligns x to the nearest cell
     void CarryBy(float dx) { x_ += dx; }
+    void Update(float dt);            // advances the hop animation
     void Draw() const;
 
     float X() const { return x_; }
@@ -19,10 +20,14 @@ public:
     float CenterX() const;
     Rectangle HitBox() const;
 
-    // Also used by the HUD (lives) and goal slots.
-    static void DrawShape(float cx, float cy, float radius);
+    // Also used by the HUD (lives), goal slots and title screen.
+    // Draws the sprite if loaded, otherwise the fallback circle frog.
+    static void DrawShape(float cx, float cy, float radius,
+        Direction facing = Direction::Up, bool jumping = false);
 
 private:
     float x_ = 0.0f;
     int row_ = 0;
+    Direction facing_ = Direction::Up;
+    float hopTimer_ = 0.0f;        
 };

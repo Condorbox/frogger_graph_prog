@@ -40,6 +40,8 @@ bool World::HopFrog(Direction dir) {
 }
 
 void World::Update(float dt) {
+    frog_.Update(dt);
+
     for (auto& lane : lanes_) lane->Update(dt);
 
     if (const Lane* lane = LaneAt(frog_.Row())) {

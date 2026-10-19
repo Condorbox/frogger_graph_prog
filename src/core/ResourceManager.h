@@ -3,7 +3,10 @@
 #include <array>
 #include <cstddef>
 
-enum class TextureId { Log1U, Log2U, Log4U, Count };
+enum class TextureId { 
+    Log1U, Log2U, Log4U, PlayerUp, PlayerDown, PlayerLeft, PlayerRight,
+    PlayerJumpUp, PlayerJumpDown, PlayerJumpLeft, PlayerJumpRight, 
+    Count };
 
 // Singleton: one global owner of all textures.
 // Needs an explicit LoadAll()/UnloadAll() because raylib requires the window
