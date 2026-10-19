@@ -6,6 +6,7 @@
 enum class TextureId { 
     Log1U, Log2U, Log4U, PlayerUp, PlayerDown, PlayerLeft, PlayerRight,
     PlayerJumpUp, PlayerJumpDown, PlayerJumpLeft, PlayerJumpRight, 
+    Turtle,
     Count };
 
 // Singleton: one global owner of all textures.

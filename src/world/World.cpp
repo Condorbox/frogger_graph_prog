@@ -35,7 +35,7 @@ bool World::HopFrog(Direction dir) {
         return true;
     }
 
-    if (!Config::IsRiverRow(frog_.Row())) frog_.SnapToGrid();   // only the river allows off-grid positions
+    if (!Config::IsLogRow(frog_.Row())) frog_.SnapToGrid();   // only log lanes allow off-grid positions
     return true;
 }
 

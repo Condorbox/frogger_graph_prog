@@ -9,19 +9,21 @@ inline constexpr int TargetFps = 60;
 // Grid
 inline constexpr int Cell    = 50;
 inline constexpr int Cols    = 16;
-inline constexpr int Rows    = 12;
+inline constexpr int Rows    = 14;
 inline constexpr int ScreenW = Cell * Cols;   // 800
 inline constexpr int ScreenH = Cell * Rows;   // 600
 
 // Row layout (0 = top)
-inline constexpr int GoalRow       = 0;
-inline constexpr int RiverFirstRow = 1;
-inline constexpr int RiverLastRow  = 3;
-inline constexpr int MedianRow     = 4;
-inline constexpr int RoadFirstRow  = 5;
-inline constexpr int RoadLastRow   = 9;
-inline constexpr int StartRow      = 10;
-inline constexpr int HudRow        = 11;
+inline constexpr int GoalRow		= 0;
+inline constexpr int RiverFirstRow	= 1;
+inline constexpr int RiverLastRow	= 5;
+inline constexpr int MedianRow		= 6;
+inline constexpr int RoadFirstRow	= 7;
+inline constexpr int RoadLastRow	= 11;
+inline constexpr int StartRow		= 12;
+inline constexpr int HudRow			= 13;
+inline constexpr int TurtleRowA		= 2;
+inline constexpr int TurtleRowB		= 5;
 
 // Rules
 inline constexpr int   NumSlots            = 5;
@@ -38,8 +40,10 @@ inline constexpr float HopLift			= 8.0f;   // pixels the sprite rises mid-hop
 inline constexpr float FrogSpriteScale	= 1.3f;   // sprite box relative to the old circle's diameter
 
 constexpr bool IsRiverRow(int row) { return row >= RiverFirstRow && row <= RiverLastRow; }
-constexpr bool IsRoadRow(int row)  { return row >= RoadFirstRow  && row <= RoadLastRow; }
-constexpr int  SlotColumn(int i)   { return 1 + i * 3; }   // columns 1,4,7,10,13
+constexpr bool IsTurtleRow(int row) { return row == TurtleRowA || row == TurtleRowB; }
+constexpr bool IsLogRow(int row) { return IsRiverRow(row) && !IsTurtleRow(row); }
+constexpr bool IsRoadRow(int row) { return row >= RoadFirstRow && row <= RoadLastRow; }
+constexpr int  SlotColumn(int i) { return 1 + i * 3; }   // columns 1,4,7,10,13
 
 // Asset paths (relative to the working directory). Missing files are skipped safely.
 namespace Paths {
@@ -60,6 +64,7 @@ inline constexpr const char* PlayerJumpUp    = "resources/Game/PlayerJump_F.png"
 inline constexpr const char* PlayerJumpDown  = "resources/Game/PlayerJump_D.png";
 inline constexpr const char* PlayerJumpLeft  = "resources/Game/PlayerJump_L.png";
 inline constexpr const char* PlayerJumpRight = "resources/Game/PlayerJump_R.png";
+inline constexpr const char* TurtleEnabled   = "resources/Game/Enemies/TurtleEnabled.png";
 }  // namespace Paths
 
 }  // namespace Config
