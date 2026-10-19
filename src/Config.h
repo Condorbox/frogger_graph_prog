@@ -39,6 +39,15 @@ inline constexpr float HopDuration		= 0.12f;  // seconds the jump sprite is show
 inline constexpr float HopLift			= 8.0f;   // pixels the sprite rises mid-hop
 inline constexpr float FrogSpriteScale	= 1.3f;   // sprite box relative to the old circle's diameter
 
+// Turtle phases
+inline constexpr float TurtleHiddenMin		= 1.5f;   
+inline constexpr float TurtleHiddenMax		= 3.0f;
+inline constexpr float TurtleDeadlyMin		= 1.0f;   
+inline constexpr float TurtleDeadlyMax		= 2.0f;
+inline constexpr float TurtleWarnTime		= 0.3f;    
+inline constexpr float TurtleBlinkInterval	= 0.075f;  
+inline constexpr float TurtleGhostAlpha		= 0.55f;   
+
 constexpr bool IsRiverRow(int row) { return row >= RiverFirstRow && row <= RiverLastRow; }
 constexpr bool IsTurtleRow(int row) { return row == TurtleRowA || row == TurtleRowB; }
 constexpr bool IsLogRow(int row) { return IsRiverRow(row) && !IsTurtleRow(row); }
@@ -65,6 +74,7 @@ inline constexpr const char* PlayerJumpDown  = "resources/Game/PlayerJump_D.png"
 inline constexpr const char* PlayerJumpLeft  = "resources/Game/PlayerJump_L.png";
 inline constexpr const char* PlayerJumpRight = "resources/Game/PlayerJump_R.png";
 inline constexpr const char* TurtleEnabled   = "resources/Game/Enemies/TurtleEnabled.png";
+inline constexpr const char* TurtleDisabled	 = "resources/Game/Enemies/TurtleDisabled.png";
 }  // namespace Paths
 
 }  // namespace Config

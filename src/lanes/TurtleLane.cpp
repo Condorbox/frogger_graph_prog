@@ -16,7 +16,7 @@ TurtleLane::TurtleLane(int row, float speed, int turtleCount) : Lane(row) {
 LaneOutcome TurtleLane::Resolve(Frog& frog, float) const {
     const Rectangle box = frog.HitBox();
     for (const auto& e : entities_) {
-        if (CheckCollisionRecs(box, e->Bounds())) return LaneOutcome::Killed;
+        if (e->IsDeadly() && CheckCollisionRecs(box, e->Bounds())) return LaneOutcome::Killed;
     }
     return LaneOutcome::Safe;
 }
