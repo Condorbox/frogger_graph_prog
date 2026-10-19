@@ -45,7 +45,7 @@ void AudioManager::Update() {
 
 void AudioManager::Play(SoundId id) const {
     const SoundSlot& s = sounds_[static_cast<std::size_t>(id)];
-    if (s.loaded) PlaySound(s.sound);
+    if (s.loaded && !IsSoundPlaying(s.sound)) PlaySound(s.sound);
 }
 
 void AudioManager::StartMusic() { if (musicLoaded_) PlayMusicStream(music_); }

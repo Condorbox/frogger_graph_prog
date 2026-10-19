@@ -18,7 +18,7 @@ if (NOT raylib_FOUND)
 endif()
 
 file(GLOB_RECURSE FROGGER_SOURCES CONFIGURE_DEPENDS src/*.cpp)
-add_executable(frogger ${FROGGER_SOURCES} "src/entities/Turtle.h" "src/entities/Turtle.cpp" "src/lanes/TurtleLane.h" "src/lanes/TurtleLane.cpp")
+add_executable(frogger ${FROGGER_SOURCES} "src/entities/Turtle.h" "src/entities/Turtle.cpp" "src/lanes/TurtleLane.h" "src/lanes/TurtleLane.cpp" "src/states/OptionsState.h" "src/states/OptionsState.cpp")
 target_include_directories(frogger PRIVATE src)
 target_link_libraries(frogger PRIVATE raylib)
 
