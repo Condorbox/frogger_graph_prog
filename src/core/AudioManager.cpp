@@ -10,25 +10,20 @@ void AudioManager::Init() {
     InitAudioDevice();
     deviceReady_ = true;
 
-    // TODO Only have one source of true
-    // Order must match the SoundId enum.
-    const char* paths[] = {
-        Config::Paths::SoundHop, Config::Paths::SoundHit, Config::Paths::SoundSplash,
-        Config::Paths::SoundGoal, Config::Paths::SoundGameOver
-    };
-    for (std::size_t i = 0; i < sounds_.size(); ++i) {
-        if (!FileExists(paths[i])) continue;
+    for (const SoundDef& def : kSoundCatalog) {
+        if (!FileExists(def.path)) continue;
 
-        SoundSlot& slot = sounds_[i];
-        const Sound source = LoadSound(paths[i]);
+        const Sound source = LoadSound(def.path);
         if (source.frameCount == 0) continue;   // failed to load
 
+        SoundSlot& slot = sounds_[static_cast<std::size_t>(def.id)];
         slot.voices.push_back(source);
-        for (int v = 1; v < Config::SoundVoices[i]; ++v) {
+        for (int v = 1; v < def.voices; ++v) {
             slot.voices.push_back(LoadSoundAlias(source));
         }
         slot.loaded = true;
     }
+
     if (FileExists(Config::Paths::MusicTrack)) {
         music_ = LoadMusicStream(Config::Paths::MusicTrack);
         musicLoaded_ = true;

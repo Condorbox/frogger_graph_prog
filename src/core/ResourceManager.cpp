@@ -1,5 +1,4 @@
 #include "core/ResourceManager.h"
-#include "Config.h"
 
 ResourceManager& ResourceManager::Instance() {
     static ResourceManager instance;
@@ -7,23 +6,12 @@ ResourceManager& ResourceManager::Instance() {
 }
 
 void ResourceManager::LoadAll() {
-    const char* paths[] = {
-        Config::Paths::Log1U, Config::Paths::Log2U, Config::Paths::Log4U,
-        Config::Paths::PlayerUp, Config::Paths::PlayerDown,
-        Config::Paths::PlayerLeft, Config::Paths::PlayerRight,
-        Config::Paths::PlayerJumpUp, Config::Paths::PlayerJumpDown,
-        Config::Paths::PlayerJumpLeft, Config::Paths::PlayerJumpRight,
-        Config::Paths::TurtleEnabled, Config::Paths::TurtleDisabled,
-        Config::Paths::Truck1, Config::Paths::Truck2, Config::Paths::Truck3,
-        Config::Paths::Truck4, Config::Paths::Truck5,
-        Config::Paths::Floor, Config::Paths::Bush, Config::Paths::Home
-    };
-    for (std::size_t i = 0; i < textures_.size(); ++i) {
-        if (FileExists(paths[i])) {
-            textures_[i].texture = LoadTexture(paths[i]);
-            SetTextureFilter(textures_[i].texture, TEXTURE_FILTER_POINT);
-            textures_[i].loaded = (textures_[i].texture.id != 0);
-        }
+    for (const TextureDef& def : kTextureCatalog) {
+        if (!FileExists(def.path)) continue;
+
+        Slot& slot = textures_[static_cast<std::size_t>(def.id)];
+        slot.texture = LoadTexture(def.path);
+        slot.loaded = (slot.texture.id != 0);
     }
 }
 

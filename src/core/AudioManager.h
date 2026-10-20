@@ -1,10 +1,9 @@
 #pragma once
 #include "raylib.h"
+#include "core/SoundCatalog.h"
 #include <array>
 #include <cstddef>
 #include <vector>
-
-enum class SoundId { Hop, Hit, Splash, Goal, GameOver, Count };
 
 // Singleton: one audio device, one set of sounds, one music stream.
 class AudioManager {

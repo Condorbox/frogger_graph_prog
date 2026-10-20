@@ -49,45 +49,16 @@ inline constexpr float TurtleWarnTime		= 0.3f;
 inline constexpr float TurtleBlinkInterval	= 0.075f;  
 inline constexpr float TurtleGhostAlpha		= 0.55f;  
 
-// TODO Fix not having two sources of true
-// Simultaneous copies of each sound (same order as SoundId) 
-inline constexpr int SoundVoices[] = { 4, 2, 2, 2, 1 };
-
 constexpr bool IsRiverRow(int row) { return row >= RiverFirstRow && row <= RiverLastRow; }
 constexpr bool IsTurtleRow(int row) { return row == TurtleRowA || row == TurtleRowB; }
 constexpr bool IsLogRow(int row) { return IsRiverRow(row) && !IsTurtleRow(row); }
 constexpr bool IsRoadRow(int row) { return row >= RoadFirstRow && row <= RoadLastRow; }
 constexpr int  SlotColumn(int i) { return 1 + i * 3; }   // columns 1,4,7,10,13
 
-// Asset paths (relative to the working directory). Missing files are skipped safely.
+// Asset paths (relative to the working directory).
+// Maybe create a MusicCatalog and a Catalog parent 
 namespace Paths {
-inline constexpr const char* Log1U           = "resources/Game/Enemies/Log1U.png";
-inline constexpr const char* Log2U           = "resources/Game/Enemies/Log2U.png";
-inline constexpr const char* Log4U		     = "resources/Game/Enemies/Log4U.png";
-inline constexpr const char* SoundHop        = "resources/Sounds/frogger_hop.wav";
-inline constexpr const char* SoundHit        = "resources/Sounds/frogger_plunk.wav";
-inline constexpr const char* SoundSplash     = "resources/Sounds/splash.wav";
-inline constexpr const char* SoundGoal       = "resources/Sounds/goal.wav";
-inline constexpr const char* SoundGameOver   = "resources/Sounds/Game_Over.mp3";
-inline constexpr const char* MusicTrack      = "resources/Sounds/Lily_Islands.mp3";
-inline constexpr const char* PlayerUp	     = "resources/Game/Player_F.png";
-inline constexpr const char* PlayerDown      = "resources/Game/Player_D.png";
-inline constexpr const char* PlayerLeft      = "resources/Game/Player_L.png";
-inline constexpr const char* PlayerRight     = "resources/Game/Player_R.png";
-inline constexpr const char* PlayerJumpUp    = "resources/Game/PlayerJump_F.png";
-inline constexpr const char* PlayerJumpDown  = "resources/Game/PlayerJump_D.png";
-inline constexpr const char* PlayerJumpLeft  = "resources/Game/PlayerJump_L.png";
-inline constexpr const char* PlayerJumpRight = "resources/Game/PlayerJump_R.png";
-inline constexpr const char* TurtleEnabled   = "resources/Game/Enemies/TurtleEnabled.png";
-inline constexpr const char* TurtleDisabled	 = "resources/Game/Enemies/TurtleDisabled.png";
-inline constexpr const char* Truck1			 = "resources/Game/Enemies/Truck1.png";
-inline constexpr const char* Truck2			 = "resources/Game/Enemies/Truck2.png";
-inline constexpr const char* Truck3			 = "resources/Game/Enemies/Truck3.png";
-inline constexpr const char* Truck4			 = "resources/Game/Enemies/Truck4.png";
-inline constexpr const char* Truck5			 = "resources/Game/Enemies/Truck5.png";
-inline constexpr const char* Floor			 = "resources/Game/Floor.png";
-inline constexpr const char* Bush			 = "resources/Game/Bush.png";
-inline constexpr const char* Home			 = "resources/Game/Home.png";
+inline constexpr const char* MusicTrack = "resources/Sounds/Lily_Islands.mp3";
 }  // namespace Paths
 
 namespace HUD {
