@@ -63,7 +63,9 @@ void Frog::Update(float dt) {
 }
 
 Rectangle Frog::HitBox() const {
-    return Rectangle{ x_ + 10.0f, static_cast<float>(row_ * Config::Cell + 10), 30.0f, 30.0f };
+    return Rectangle{ x_ + Config::Frog::HitInset,
+                      static_cast<float>(row_ * Config::Cell) + Config::Frog::HitInset,
+                      Config::Frog::HitSize, Config::Frog::HitSize };
 }
 
 void Frog::Draw() const {
@@ -73,7 +75,9 @@ void Frog::Draw() const {
         const float progress = 1.0f - hopTimer_ / Config::HopDuration;   // 0 -> 1
         lift = std::sin(progress * PI) * Config::HopLift;
     }
-    DrawShape(CenterX(), row_ * Config::Cell + Config::Cell * 0.5f - lift, 17.0f, facing_, jumping);
+
+    DrawShape(CenterX(), row_ * Config::Cell + Config::Cell * 0.5f - lift,
+        Config::Frog::Radius, facing_, jumping);
 }
 
 

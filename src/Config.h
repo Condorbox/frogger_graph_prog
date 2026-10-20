@@ -49,6 +49,11 @@ inline constexpr float TurtleWarnTime		= 0.3f;
 inline constexpr float TurtleBlinkInterval	= 0.075f;  
 inline constexpr float TurtleGhostAlpha		= 0.55f;  
 
+// Entity size
+inline constexpr int LogInset	 = 4;    
+inline constexpr int CarInset	 = 5;    
+inline constexpr int TurtleInset = 5;   
+
 constexpr bool IsRiverRow(int row) { return row >= RiverFirstRow && row <= RiverLastRow; }
 constexpr bool IsTurtleRow(int row) { return row == TurtleRowA || row == TurtleRowB; }
 constexpr bool IsLogRow(int row) { return IsRiverRow(row) && !IsTurtleRow(row); }
@@ -62,13 +67,22 @@ inline constexpr const char* MusicTrack = "resources/Sounds/Lily_Islands.mp3";
 }  // namespace Paths
 
 namespace HUD {
-inline constexpr int   Pad		 = 10;     // margin at the screen edges
-inline constexpr int   Gap		 = 24;     // space between HUD sections
-inline constexpr int   FontSize  = 20;
-inline constexpr int   LifeSlot  = 32;     // width reserved per life icon
-inline constexpr float LifeSize  = 11.0f;
-inline constexpr int   BarWidth  = 120;
-inline constexpr int   BarHeight = 16;
+inline constexpr int   Pad		   = 10;     // margin at the screen edges
+inline constexpr int   Gap		   = 24;     // space between HUD sections
+inline constexpr int   FontSize    = 20;
+inline constexpr int   LifeSlot    = 32;     // width reserved per life icon
+inline constexpr float LifeSize    = 11.0f;
+inline constexpr int   BarWidth	   = 120;
+inline constexpr int   BarHeight   = 16;
+inline constexpr int   TextOffsetY = (Cell - FontSize) / 2;   // 15, centres text in the bar
+inline constexpr int   BarOffsetY  = (Cell - BarHeight) / 2;  // 17, centres the timer bar
+inline constexpr int   LifeCenterY = 27;                      // life icons sit slightly low on purpose
 }  // namespace
+
+namespace Frog {
+	inline constexpr float Radius   = 17.0f;   // drawn size (sprite box and fallback circle)
+	inline constexpr float HitInset = 10.0f;   // gap between the cell edge and the hitbox
+	inline constexpr float HitSize  = static_cast<float>(Cell) - 2.0f * HitInset;  // 30
+}  // namespace Frog
 
 }  // namespace Config

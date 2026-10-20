@@ -13,7 +13,7 @@ TextureId TextureFor(LogType type) {
 }  // namespace
 
 Log::Log(float x, int row, LogType type, float speed)
-    : Entity(Rectangle{ x, static_cast<float>(row * Config::Cell + 4), WidthFor(type), Height }, speed),
+    : Entity(Rectangle{ x, static_cast<float>(row * Config::Cell + Config::LogInset), WidthFor(type), Height }, speed),
       type_(type) {}
 
 float Log::WidthFor(LogType type) {

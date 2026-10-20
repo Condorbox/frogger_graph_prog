@@ -6,7 +6,7 @@ enum class LogType { Log1U, Log2U, Log4U };
 
 class Log final : public Entity {
 public:
-    static constexpr float Height = static_cast<float>(Config::Cell - 8);
+    static constexpr float Height = static_cast<float>(Config::Cell - 2 * Config::LogInset);
 
     Log(float x, int row, LogType type, float speed);
     void Draw() const override;

@@ -7,7 +7,7 @@ enum class TurtleState { Disabled, Enabled };
 // Enemy: touching it sends the frog back to the start.
 class Turtle final : public Entity {
 public:
-    static constexpr float Size = static_cast<float>(Config::Cell - 10);
+    static constexpr float Size = static_cast<float>(Config::Cell - 2 * Config::TurtleInset);
 
     Turtle(float x, int row, float speed);
 

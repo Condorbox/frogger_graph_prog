@@ -5,7 +5,7 @@
 class Car final : public Entity {
 public:
     static constexpr int   VariantCount = 5;
-    static constexpr float Height = static_cast<float>(Config::Cell - 10);
+    static constexpr float Height = static_cast<float>(Config::Cell - 2 * Config::CarInset);
 
     Car(float x, int row, int variant, float speed, Color color);
     void Draw() const override;

@@ -16,7 +16,7 @@ void Hud::Draw(const GameSession& s) const {
     x += MeasureText("LIVES", Config::HUD::FontSize) + 12;
     for (int i = 0; i < s.Lives(); ++i) {
         Frog::DrawShape(static_cast<float>(x + Config::HUD::LifeSlot / 2 + Config::HUD::LifeSlot * i),
-            static_cast<float>(y + 27), Config::HUD::LifeSize);
+            static_cast<float>(y + Config::HUD::LifeCenterY), Config::HUD::LifeSize);
     }
     x += Config::HUD::LifeSlot * Config::MaxLives + Config::HUD::Gap;
 
@@ -27,9 +27,10 @@ void Hud::Draw(const GameSession& s) const {
     x += MeasureText(timeText, Config::HUD::FontSize) + 10;
 
     const float ratio = s.TimeLeftRatio();
-    DrawRectangle(x, y + 17, Config::HUD::BarWidth, Config::HUD::BarHeight, DARKGRAY);
-    DrawRectangle(x, y + 17, static_cast<int>(static_cast<float>(Config::HUD::BarWidth) * ratio), Config::HUD::BarHeight,
-        ratio > 0.25f ? GREEN : RED);
+    const int barY = y + Config::HUD::BarOffsetY;
+    DrawRectangle(x, barY, Config::HUD::BarWidth, Config::HUD::BarHeight, DARKGRAY);
+    DrawRectangle(x, barY, static_cast<int>(static_cast<float>(Config::HUD::BarWidth) * ratio),
+        Config::HUD::BarHeight, ratio > 0.25f ? GREEN : RED);
 
     // Level and score: right-aligned, so it can never run off the screen
     const char* info = TextFormat("LVL %d   SCORE %d", s.Level(), s.Score());

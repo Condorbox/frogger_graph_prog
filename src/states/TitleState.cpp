@@ -16,5 +16,7 @@ void TitleState::Draw() const {
     DrawCenteredText("Press ENTER to start", 300, 28, WHITE);
     DrawCenteredText("Press O for how to play", 345, 22, SKYBLUE);
     DrawCenteredText("Arrows / WASD to hop", 395, 20, LIGHTGRAY);
-    DrawCenteredText("Fill all 5 exits before the minute runs out", 425, 20, LIGHTGRAY);
+    DrawCenteredText(TextFormat("Fill all %d exits within %d seconds",
+        Config::NumSlots, static_cast<int>(Config::LevelTime)),
+        425, 20, LIGHTGRAY);
 }
