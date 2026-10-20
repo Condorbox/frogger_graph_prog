@@ -89,4 +89,14 @@ inline constexpr const char* Floor			 = "resources/Game/Floor.png";
 inline constexpr const char* Bush			 = "resources/Game/Bush.png";
 }  // namespace Paths
 
+namespace HUD {
+inline constexpr int   Pad		 = 10;     // margin at the screen edges
+inline constexpr int   Gap		 = 24;     // space between HUD sections
+inline constexpr int   FontSize  = 20;
+inline constexpr int   LifeSlot  = 32;     // width reserved per life icon
+inline constexpr float LifeSize  = 11.0f;
+inline constexpr int   BarWidth  = 120;
+inline constexpr int   BarHeight = 16;
+}  // namespace
+
 }  // namespace Config
