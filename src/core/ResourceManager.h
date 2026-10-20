@@ -9,7 +9,7 @@ enum class TextureId {
     PlayerJumpUp, PlayerJumpDown, PlayerJumpLeft, PlayerJumpRight, 
     TurtleEnabled, TurtleDisabled,
     Truck1, Truck2, Truck3, Truck4, Truck5,
-    Floor, Bush,
+    Floor, Bush, Home,
     Count };
 
 // Singleton: one global owner of all textures.

@@ -30,10 +30,12 @@ bool GoalRow::AllFilled() const {
 void GoalRow::Draw() const {
     DrawTiledRow(Config::GoalRow, TextureId::Bush, Theme::Grass);
     for (int i = 0; i < Config::NumSlots; ++i) {
-        const int x = Config::SlotColumn(i) * Config::Cell;
-        DrawRectangle(x, Config::GoalRow * Config::Cell, Config::Cell, Config::Cell, Theme::Water);
+        const int col = Config::SlotColumn(i);
+        DrawTile(col, Config::GoalRow, TextureId::Home, Theme::Water);   
         if (filled_[static_cast<std::size_t>(i)]) {
-            Frog::DrawShape(x + Config::Cell * 0.5f, Config::GoalRow * Config::Cell + Config::Cell * 0.5f, 17.0f);
+            Frog::DrawShape(static_cast<float>(col * Config::Cell) + Config::Cell * 0.5f,
+                static_cast<float>(Config::GoalRow * Config::Cell) + Config::Cell * 0.5f,
+                17.0f);
         }
     }
 }
