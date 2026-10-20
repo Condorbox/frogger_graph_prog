@@ -7,7 +7,9 @@
 #include <ctime>
 
 Game::Game() {
+    SetConfigFlags(FLAG_VSYNC_HINT);
     InitWindow(Config::ScreenW, Config::ScreenH, Config::WindowTitle);
+    ChangeDirectory(GetApplicationDirectory());
     SetTargetFPS(Config::TargetFps);
     SetRandomSeed(static_cast<unsigned int>(std::time(nullptr)));
 
