@@ -10,7 +10,6 @@ void PlayingState::OnEnter() {
     audio.StartMusic();
 
     session_.Reset();
-    world_.StartLevel(1);
 }
 
 void PlayingState::Update(float dt) {
