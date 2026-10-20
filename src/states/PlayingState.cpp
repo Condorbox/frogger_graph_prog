@@ -63,11 +63,11 @@ void PlayingState::ProcessWorldEvents() {
                 session_.CompleteLevel();
                 world_.StartLevel(session_.Level());
                 break;
-            case WorldEvent::FrogKilled:
-                LoseLife(false);
-                break;
             case WorldEvent::FrogDrowned:
                 LoseLife(true);
+                break;
+            case WorldEvent::FrogKilled:
+                LoseLife(false);
                 break;
         }
         if (session_.IsGameOver()) break;

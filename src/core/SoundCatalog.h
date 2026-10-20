@@ -13,7 +13,7 @@ struct SoundDef {
 inline constexpr SoundDef kSoundCatalog[] = {
     { SoundId::Hop,      "resources/Sounds/frogger_hop.wav",    4 },
     { SoundId::Hit,      "resources/Sounds/frogger_plunk.wav",  2 },
-    { SoundId::Splash,   "resources/Sounds/splash.wav",         2 },
+    { SoundId::Splash,   "resources/Sounds/frogger_squash.wav", 2 },
     { SoundId::Goal,     "resources/Sounds/goal.wav",           2 },
     { SoundId::GameOver, "resources/Sounds/Game_Over.mp3",      1 },
 };

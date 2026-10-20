@@ -12,7 +12,7 @@ public:
 
     const Rectangle& Bounds() const { return bounds_; }
     float Speed() const { return speed_; }
-    virtual bool IsDeadly() const { return true; }
+    virtual bool IsDeadly() const { return false; }
     void SetX(float x) { bounds_.x = x; }
     void ShiftX(float dx) { bounds_.x += dx; }
 
