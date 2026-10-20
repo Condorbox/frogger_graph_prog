@@ -8,7 +8,7 @@ AudioManager& AudioManager::Instance() {
 
 void AudioManager::Init() {
     InitAudioDevice();
-    deviceReady_ = true;
+    deviceReady_ = IsAudioDeviceReady();;
 
     for (const SoundDef& def : kSoundCatalog) {
         if (!FileExists(def.path)) continue;
@@ -26,7 +26,7 @@ void AudioManager::Init() {
 
     if (FileExists(Config::Paths::MusicTrack)) {
         music_ = LoadMusicStream(Config::Paths::MusicTrack);
-        musicLoaded_ = true;
+        musicLoaded_ = music_.frameCount > 0;
         SetMusicVolume(music_, 0.4f);
     }
 }
