@@ -26,7 +26,7 @@ CMake uses an installed raylib if it finds one, otherwise it downloads raylib 5.
 
 **River.** The frog must stand on a log and is carried by it. Water, or being carried off screen, drowns it. The check uses the frog's *center* with a 6 px forgiveness margin at the log edges, so the player is not punished for pixel-level misjudgments. Each lane has one log type, with different speeds and gaps, so each row needs a different rhythm.
 
-**Turtle lanes (our own twist).** In the original game turtles are platforms. Here the two "shallows" rows (2 and 5) are walkable, and the turtles are the *hazard*: they cycle between hidden (harmless), a short blinking warning (0.3 s), and surfaced (deadly). Turtles start in random phases so they are never in sync. This adds timing pressure in a different way from logs and road, and the warning blink keeps deaths readable. The "how to play" screen explains it.
+**Turtle lanes** Here the two "shallows" rows (2 and 5) are walkable, and the turtles are the *hazard*, they cycle between hidden (harmless), a short blinking warning (0.3 s), and surfaced (deadly). Turtles start in random phases so they are never in sync. This adds timing pressure in a different way from logs and road, and the warning blink keeps deaths readable. The "how to play" screen explains it.
 
 **Exits.** There are five slots (columns 1, 4, 7, 10, 13). Hopping up into the goal row anywhere else, or into an already filled slot, is simply blocked, with no life lost. Blocking, instead of killing, avoids frustrating deaths on the very last hop. After filling a slot, the frog returns to the start.
 
@@ -40,7 +40,7 @@ CMake uses an installed raylib if it finds one, otherwise it downloads raylib 5.
 
 ```
 src/
-  main.cpp, Config.h, Theme.h      entry point, all constants/paths, colors
+  main.cpp, Config.h, Theme.h  
   core/      Game, GameState, GameSession, ResourceManager, AudioManager,
              TextureCatalog, SoundCatalog, CatalogCheck
   states/    TitleState, PlayingState, GameOverState, OptionsState
