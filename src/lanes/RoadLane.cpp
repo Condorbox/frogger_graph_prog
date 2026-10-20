@@ -5,49 +5,89 @@
 #include "Theme.h"
 #include <cmath>
 
+namespace {
+
+    const Color kPalette[] = { RED, ORANGE, YELLOW, SKYBLUE, PINK, WHITE };
+
+    Color RandomCarColor() {
+        return kPalette[GetRandomValue(0, static_cast<int>(std::size(kPalette)) - 1)];
+    }
+
+    struct CarPlan {
+        std::vector<int>   variants;
+        std::vector<float> widths;
+        float totalWidth = 0.0f;
+        float maxWidth = 0.0f;
+    };
+
+    CarPlan PickCars(int count) {
+        CarPlan plan;
+        for (int i = 0; i < count; ++i) {
+            const int variant = GetRandomValue(0, Car::VariantCount - 1);
+            const float width = Car::WidthFor(variant);
+            plan.variants.push_back(variant);
+            plan.widths.push_back(width);
+            plan.totalWidth += width;
+            plan.maxWidth = std::max(plan.maxWidth, width);
+        }
+        return plan;
+    }
+
+    float MinLoopForGaps(const CarPlan& plan) {
+        return plan.totalWidth + static_cast<float>(plan.widths.size()) * Config::MinCarGap;
+    }
+
+    float LoopLengthFor(const CarPlan& plan) {
+        const float offscreen = static_cast<float>(Config::ScreenW) + plan.maxWidth;
+        return std::max(offscreen, MinLoopForGaps(plan));
+    }
+
+    std::vector<float> SpreadGaps(const CarPlan& plan, float loopLength) {
+        const std::size_t n = plan.widths.size();
+        const float slack = loopLength - MinLoopForGaps(plan);
+
+        std::vector<float> shares(n);
+        float shareSum = 0.0f;
+        for (float& s : shares) {
+            s = 0.5f + static_cast<float>(GetRandomValue(0, 100)) / 100.0f;
+            shareSum += s;
+        }
+
+        std::vector<float> gaps(n);
+        for (std::size_t i = 0; i < n; ++i) {
+            gaps[i] = Config::MinCarGap + slack * shares[i] / shareSum;
+        }
+        return gaps;
+    }
+
+    std::vector<float> PlaceCars(const CarPlan& plan, const std::vector<float>& gaps, float loopLength) {
+        float cursor = static_cast<float>(GetRandomValue(0, static_cast<int>(loopLength) - 1));
+
+        std::vector<float> xs;
+        for (std::size_t i = 0; i < plan.widths.size(); ++i) {
+            xs.push_back(std::fmod(cursor + plan.maxWidth, loopLength) - plan.maxWidth);
+            cursor += plan.widths[i] + gaps[i];
+        }
+        return xs;
+    }
+} // namespace
+
 RoadLane::RoadLane(int row, float speed, int carCount) : Lane(row) {
-    const Color palette[] = { RED, ORANGE, YELLOW, SKYBLUE, PINK, WHITE };
-    const auto n = static_cast<std::size_t>(carCount);
+    const CarPlan plan = PickCars(carCount);
+    loopLength_ = LoopLengthFor(plan);
+    const std::vector<float> gaps = SpreadGaps(plan, loopLength_);
+    const std::vector<float> xs = PlaceCars(plan, gaps, loopLength_);
 
-    // 1) Pick a sprite for every car; the widths decide the layout.
-    std::vector<int> variants(n);
-    std::vector<float> widths(n);
-    float totalWidth = 0.0f, maxWidth = 0.0f;
-    for (std::size_t i = 0; i < n; ++i) {
-        variants[i] = GetRandomValue(0, Car::VariantCount - 1);
-        widths[i] = Car::WidthFor(variants[i]);
-        totalWidth += widths[i];
-        maxWidth = std::max(maxWidth, widths[i]);
-    }
-
-    // 2) The loop must be long enough that a wrapping car is fully off screen,
-    //    and that every car still has at least MinCarGap behind it.
-    const float minLoop = static_cast<float>(Config::ScreenW) + maxWidth;
-    const float minForGaps = totalWidth + static_cast<float>(carCount) * Config::MinCarGap;
-    loopLength_ = std::max(minLoop, minForGaps);
-
-    // 3) Hand out the leftover space as random extra gap between cars.
-    const float slack = loopLength_ - minForGaps;
-    std::vector<float> weights(n);
-    float weightSum = 0.0f;
-    for (float& w : weights) {
-        w = 0.5f + static_cast<float>(GetRandomValue(0, 100)) / 100.0f;
-        weightSum += w;
-    }
-
-    // 4) Place the cars one after another, then fold them into the visible window.
-    float cursor = static_cast<float>(GetRandomValue(0, static_cast<int>(loopLength_) - 1));
-    for (std::size_t i = 0; i < n; ++i) {
-        const float x = std::fmod(cursor + maxWidth, loopLength_) - maxWidth;
-        Add(std::make_unique<Car>(x, row, variants[i], speed, palette[GetRandomValue(0, 5)]));
-        cursor += widths[i] + Config::MinCarGap + slack * weights[i] / weightSum;
+    for (std::size_t i = 0; i < xs.size(); ++i) {
+        Add(std::make_unique<Car>(xs[i], row, plan.variants[i], speed, RandomCarColor()));
     }
 }
 
 LaneOutcome RoadLane::Resolve(Frog& frog, float) const {
     const Rectangle box = frog.HitBox();
     for (const auto& e : entities_) {
-        if (CheckCollisionRecs(box, e->Bounds())) return LaneOutcome::Killed;
+        if (CheckCollisionRecs(box, e->Bounds())) 
+            return LaneOutcome::Killed;
     }
     return LaneOutcome::Safe;
 }
@@ -59,6 +99,8 @@ void RoadLane::DrawBackground() const {
 void RoadLane::Wrap(Entity& e) const {
     const Rectangle& b = e.Bounds();
     // Every car jumps by the same amount, so the gaps between them never change.
-    if (e.Speed() > 0.0f && b.x > Config::ScreenW)          e.ShiftX(-loopLength_);
-    else if (e.Speed() < 0.0f && b.x + b.width < 0.0f)      e.ShiftX(loopLength_);
+    if (e.Speed() > 0.0f && b.x > Config::ScreenW)          
+        e.ShiftX(-loopLength_);
+    else if (e.Speed() < 0.0f && b.x + b.width < 0.0f)      
+        e.ShiftX(loopLength_);
 }
