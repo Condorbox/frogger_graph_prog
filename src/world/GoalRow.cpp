@@ -1,5 +1,6 @@
 #include "world/GoalRow.h"
 #include "entities/Frog.h"
+#include "world/TileUtils.h"
 #include "Theme.h"
 #include <algorithm>
 #include <cmath>
@@ -27,7 +28,7 @@ bool GoalRow::AllFilled() const {
 }
 
 void GoalRow::Draw() const {
-    DrawRectangle(0, Config::GoalRow * Config::Cell, Config::ScreenW, Config::Cell, Theme::Grass);
+    DrawTiledRow(Config::GoalRow, TextureId::Bush, Theme::Grass);
     for (int i = 0; i < Config::NumSlots; ++i) {
         const int x = Config::SlotColumn(i) * Config::Cell;
         DrawRectangle(x, Config::GoalRow * Config::Cell, Config::Cell, Config::Cell, Theme::Water);

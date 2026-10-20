@@ -1,6 +1,7 @@
 #include "lanes/SafeLane.h"
+#include "world/TileUtils.h"
 #include "Config.h"
 
 void SafeLane::DrawBackground() const {
-    DrawRectangle(0, row_ * Config::Cell, Config::ScreenW, Config::Cell, color_);
+    DrawTiledRow(row_, TextureId::Floor, color_);
 }

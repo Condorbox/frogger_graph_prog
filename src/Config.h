@@ -85,6 +85,8 @@ inline constexpr const char* Truck2			 = "resources/Game/Enemies/Truck2.png";
 inline constexpr const char* Truck3			 = "resources/Game/Enemies/Truck3.png";
 inline constexpr const char* Truck4			 = "resources/Game/Enemies/Truck4.png";
 inline constexpr const char* Truck5			 = "resources/Game/Enemies/Truck5.png";
+inline constexpr const char* Floor			 = "resources/Game/Floor.png";
+inline constexpr const char* Bush			 = "resources/Game/Bush.png";
 }  // namespace Paths
 
 }  // namespace Config

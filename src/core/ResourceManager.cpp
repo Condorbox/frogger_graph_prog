@@ -15,7 +15,8 @@ void ResourceManager::LoadAll() {
         Config::Paths::PlayerJumpLeft, Config::Paths::PlayerJumpRight,
         Config::Paths::TurtleEnabled, Config::Paths::TurtleDisabled,
         Config::Paths::Truck1, Config::Paths::Truck2, Config::Paths::Truck3,
-        Config::Paths::Truck4, Config::Paths::Truck5
+        Config::Paths::Truck4, Config::Paths::Truck5,
+        Config::Paths::Floor, Config::Paths::Bush
     };
     for (std::size_t i = 0; i < textures_.size(); ++i) {
         if (FileExists(paths[i])) {
