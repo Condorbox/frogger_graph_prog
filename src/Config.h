@@ -33,6 +33,7 @@ inline constexpr float SpeedGrowthPerLevel = 0.12f;
 inline constexpr int   SlotPoints          = 100;
 inline constexpr int   LevelBonus          = 500;
 inline constexpr int   TimeBonusPerSecond  = 10;
+inline constexpr float MinCarGap		   = 80.0f;
 
 // Frog animation
 inline constexpr float HopDuration		= 0.12f;  // seconds the jump sprite is shown
@@ -79,6 +80,11 @@ inline constexpr const char* PlayerJumpLeft  = "resources/Game/PlayerJump_L.png"
 inline constexpr const char* PlayerJumpRight = "resources/Game/PlayerJump_R.png";
 inline constexpr const char* TurtleEnabled   = "resources/Game/Enemies/TurtleEnabled.png";
 inline constexpr const char* TurtleDisabled	 = "resources/Game/Enemies/TurtleDisabled.png";
+inline constexpr const char* Truck1			 = "resources/Game/Enemies/Truck1.png";
+inline constexpr const char* Truck2			 = "resources/Game/Enemies/Truck2.png";
+inline constexpr const char* Truck3			 = "resources/Game/Enemies/Truck3.png";
+inline constexpr const char* Truck4			 = "resources/Game/Enemies/Truck4.png";
+inline constexpr const char* Truck5			 = "resources/Game/Enemies/Truck5.png";
 }  // namespace Paths
 
 }  // namespace Config

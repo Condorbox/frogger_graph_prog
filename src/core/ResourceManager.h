@@ -4,9 +4,11 @@
 #include <cstddef>
 
 enum class TextureId { 
-    Log1U, Log2U, Log4U, PlayerUp, PlayerDown, PlayerLeft, PlayerRight,
+    Log1U, Log2U, Log4U, 
+    PlayerUp, PlayerDown, PlayerLeft, PlayerRight,
     PlayerJumpUp, PlayerJumpDown, PlayerJumpLeft, PlayerJumpRight, 
     TurtleEnabled, TurtleDisabled,
+    Truck1, Truck2, Truck3, Truck4, Truck5,
     Count };
 
 // Singleton: one global owner of all textures.

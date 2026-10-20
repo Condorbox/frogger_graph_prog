@@ -11,4 +11,7 @@ public:
 protected:
     void DrawBackground() const override;
     void Wrap(Entity& entity) const override;
+
+private:
+    float loopLength_ = 0.0f;   // cars live on a conveyor of this length
 };
